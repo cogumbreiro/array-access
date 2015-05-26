@@ -54,7 +54,10 @@ def parse(data):
     >>> parse("i + 1")
     Add(Atom(level=0, coef=1, has_var=False), Atom(level=1, coef=1, has_var=False))
     """
-    return Arith().parse(data)
+    try:
+        return Arith().parse(data)
+    except ParseException:
+        raise ValueError
 
 def eval(data):
     """

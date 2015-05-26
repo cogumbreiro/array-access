@@ -1,5 +1,7 @@
 
-def get_level(atom, vars=("i", "j", "k")):
+VARS = ("i", "j", "k")
+
+def get_level(atom, vars=VARS):
     """
     >>> get_level(2)
     0
@@ -93,7 +95,6 @@ class Add:
 def create_add(lhs, rhs):
         return Add(flatten_add((lhs, rhs)))
 
-
 class Mul:
     def __init__(self, lhs, rhs):
         self.lhs = lhs
@@ -142,6 +143,26 @@ def eval_expr(add):
     if len(result) == 1:
         return result[0]
     return Add(tuple(result))
+
+def tojson(expr):
+    """
+    >>> tojson(create_atom(1)) == {'coef': 1, 'level': 0, 'has_var': False}
+    True
+    >>> tojson(create_add(create_atom(1), create_atom('i'))) == \\
+    ... ({'coef': 1, 'level': 0, 'has_var': False}, \\
+    ...  {'coef': 1, 'level': 1, 'has_var': False})
+    True
+    """
+    if isinstance(expr, Atom):
+        return dict(expr.__dict__)
+    if isinstance(expr, Add):
+        return tuple(tojson(x) for x in expr.children)
+
+    raise ValueError
+
+def dumps(expr):
+    import json
+    return json.dumps(tojson(expr))
 
 if __name__ == "__main__":
     import doctest
