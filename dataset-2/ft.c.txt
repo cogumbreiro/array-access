@@ -1,0 +1,95 @@
+static void evolve(dcomplex u0[NZ][NY][NX], dcomplex u1[NZ][NY][NX],
+		   int t, int indexmap[NZ][NY][NX], int d[3]);
+static void compute_initial_conditions(dcomplex u0[NZ][NY][NX], int d[3]);
+static void compute_indexmap(int indexmap[NZ][NY][NX], int d[3]);
+static void fft(int dir, dcomplex x1[NZ][NY][NX], dcomplex x2[NZ][NY][NX]);
+static void cffts1(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]);
+static void cffts2(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]);
+static void cffts3(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]);
+static void cfftz (int is, int m, int n, dcomplex x[NX][FFTBLOCKPAD],
+		   dcomplex y[NX][FFTBLOCKPAD]);
+		   dcomplex u[NX], dcomplex x[NX][FFTBLOCKPAD],
+		   dcomplex y[NX][FFTBLOCKPAD]);
+static void checksum(int i, dcomplex u1[NZ][NY][NX], int d[3]);
+    static dcomplex u0[NZ][NY][NX];
+    static dcomplex u1[NZ][NY][NX];
+    static dcomplex u2[NZ][NY][NX];
+    static int indexmap[NZ][NY][NX];
+    fft_init (dims[0][0]);
+    fft_init (dims[0][0]);
+static void evolve(dcomplex u0[NZ][NY][NX], dcomplex u1[NZ][NY][NX],
+		   int t, int indexmap[NZ][NY][NX], int d[3]) {
+	      crmul(u1[k][j][i], u0[k][j][i], ex[t*indexmap[k][j][i]]);
+static void compute_initial_conditions(dcomplex u0[NZ][NY][NX], int d[3]) {
+    for (k 
+        vranlc(2*NX*dims[0][1], &x0, A, tmp);
+	for (j 
+	    u0[k][j][i].real 
+	    u0[k][j][i].imag 
+        if (k !
+	dims[i][0] 
+	dims[i][1] 
+	dims[i][2] 
+static void compute_indexmap(int indexmap[NZ][NY][NX], int d[3]) {
+    for (i 
+	for (j 
+            for (k 
+		indexmap[k][j][i] 
+static void fft(int dir, dcomplex x1[NZ][NY][NX], dcomplex x2[NZ][NY][NX]) {
+    dcomplex y0[NX][FFTBLOCKPAD];
+    dcomplex y1[NX][FFTBLOCKPAD];
+static void cffts1(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]) {
+dcomplex y0[NX][FFTBLOCKPAD];
+dcomplex y1[NX][FFTBLOCKPAD];
+		    y0[i][j].real 
+		    y0[i][j].imag 
+		  xout[k][j+jj][i].real 
+		  xout[k][j+jj][i].imag 
+static void cffts2(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]) {
+dcomplex y0[NX][FFTBLOCKPAD];
+dcomplex y1[NX][FFTBLOCKPAD];
+		    y0[j][i].real 
+		    y0[j][i].imag 
+		   xout[k][j][i+ii].real 
+		   xout[k][j][i+ii].imag 
+static void cffts3(int is, int d[3], dcomplex x[NZ][NY][NX],
+		   dcomplex xout[NZ][NY][NX],
+		   dcomplex y0[NX][FFTBLOCKPAD],
+		   dcomplex y1[NX][FFTBLOCKPAD]) {
+dcomplex y0[NX][FFTBLOCKPAD];
+dcomplex y1[NX][FFTBLOCKPAD];
+		    y0[k][i].real 
+		    y0[k][i].imag 
+		   xout[k][j][i+ii].real 
+		   xout[k][j][i+ii].imag 
+static void cfftz (int is, int m, int n, dcomplex x[NX][FFTBLOCKPAD],
+		   dcomplex y[NX][FFTBLOCKPAD]) {
+		x[j][i].real 
+		x[j][i].imag 
+		   dcomplex u[NX], dcomplex x[NX][FFTBLOCKPAD],
+		   dcomplex y[NX][FFTBLOCKPAD]) {
+		x11real 
+		x11imag 
+		x21real 
+		x21imag 
+		y[i21+k][j].real 
+		y[i21+k][j].imag 
+		y[i22+k][j].real 
+		y[i22+k][j].imag 
+static void checksum(int i, dcomplex u1[NZ][NY][NX], int d[3]) {
+		  cadd(chk,chk,u1[s-zstart[0]][r-ystart[0]][q-xstart[0]]);

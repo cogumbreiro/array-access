@@ -1,0 +1,1389 @@
+		  double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+		  double ldz[ISIZ1][ISIZ2][5][5],
+		  double ldy[ISIZ1][ISIZ2][5][5],
+		  double ldx[ISIZ1][ISIZ2][5][5],
+		  double d[ISIZ1][ISIZ2][5][5],
+		 double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+		 double tv[ISIZ1][ISIZ2][5],
+		 double d[ISIZ1][ISIZ2][5][5],
+		 double udx[ISIZ1][ISIZ2][5][5],
+		 double udy[ISIZ1][ISIZ2][5][5],
+		 double udz[ISIZ1][ISIZ2][5][5],
+		    double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+		  double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+		  double ldz[ISIZ1][ISIZ2][5][5],
+		  double ldy[ISIZ1][ISIZ2][5][5],
+		  double ldx[ISIZ1][ISIZ2][5][5],
+		  double d[ISIZ1][ISIZ2][5][5],
+  double tmat[5][5];
+	v[i][j][k][m] 
+	  - omega * (  ldz[i][j][m][0] * v[i][j][k-1][0]
+		       + ldz[i][j][m][1] * v[i][j][k-1][1]
+		       + ldz[i][j][m][2] * v[i][j][k-1][2]
+		       + ldz[i][j][m][3] * v[i][j][k-1][3]
+		       + ldz[i][j][m][4] * v[i][j][k-1][4]  );
+	v[i][j][k][m] 
+	  - omega * ( ldy[i][j][m][0] * v[i][j-1][k][0]
+		      + ldx[i][j][m][0] * v[i-1][j][k][0]
+		      + ldy[i][j][m][1] * v[i][j-1][k][1]
+		      + ldx[i][j][m][1] * v[i-1][j][k][1]
+		      + ldy[i][j][m][2] * v[i][j-1][k][2]
+		      + ldx[i][j][m][2] * v[i-1][j][k][2]
+		      + ldy[i][j][m][3] * v[i][j-1][k][3]
+		      + ldx[i][j][m][3] * v[i-1][j][k][3]
+		      + ldy[i][j][m][4] * v[i][j-1][k][4]
+		      + ldx[i][j][m][4] * v[i-1][j][k][4] );
+	tmat[m][0] 
+	tmat[m][1] 
+	tmat[m][2] 
+	tmat[m][3] 
+	tmat[m][4] 
+      tmp1 
+      tmp 
+      tmat[1][1] 
+	- tmp * tmat[0][1];
+      tmat[1][2] 
+	- tmp * tmat[0][2];
+      tmat[1][3] 
+	- tmp * tmat[0][3];
+      tmat[1][4] 
+	- tmp * tmat[0][4];
+      v[i][j][k][1] 
+	- v[i][j][k][0] * tmp;
+      tmp 
+      tmat[2][1] 
+	- tmp * tmat[0][1];
+      tmat[2][2] 
+	- tmp * tmat[0][2];
+      tmat[2][3] 
+	- tmp * tmat[0][3];
+      tmat[2][4] 
+	- tmp * tmat[0][4];
+      v[i][j][k][2] 
+	- v[i][j][k][0] * tmp;
+      tmp 
+      tmat[3][1] 
+	- tmp * tmat[0][1];
+      tmat[3][2] 
+	- tmp * tmat[0][2];
+      tmat[3][3] 
+	- tmp * tmat[0][3];
+      tmat[3][4] 
+	- tmp * tmat[0][4];
+      v[i][j][k][3] 
+	- v[i][j][k][0] * tmp;
+      tmp 
+      tmat[4][1] 
+	- tmp * tmat[0][1];
+      tmat[4][2] 
+	- tmp * tmat[0][2];
+      tmat[4][3] 
+	- tmp * tmat[0][3];
+      tmat[4][4] 
+	- tmp * tmat[0][4];
+      v[i][j][k][4] 
+	- v[i][j][k][0] * tmp;
+      tmp1 
+      tmp 
+      tmat[2][2] 
+	- tmp * tmat[1][2];
+      tmat[2][3] 
+	- tmp * tmat[1][3];
+      tmat[2][4] 
+	- tmp * tmat[1][4];
+      v[i][j][k][2] 
+	- v[i][j][k][1] * tmp;
+      tmp 
+      tmat[3][2] 
+	- tmp * tmat[1][2];
+      tmat[3][3] 
+	- tmp * tmat[1][3];
+      tmat[3][4] 
+	- tmp * tmat[1][4];
+      v[i][j][k][3] 
+	- v[i][j][k][1] * tmp;
+      tmp 
+      tmat[4][2] 
+	- tmp * tmat[1][2];
+      tmat[4][3] 
+	- tmp * tmat[1][3];
+      tmat[4][4] 
+	- tmp * tmat[1][4];
+      v[i][j][k][4] 
+	- v[i][j][k][1] * tmp;
+      tmp1 
+      tmp 
+      tmat[3][3] 
+	- tmp * tmat[2][3];
+      tmat[3][4] 
+	- tmp * tmat[2][4];
+      v[i][j][k][3] 
+        - v[i][j][k][2] * tmp;
+      tmp 
+      tmat[4][3] 
+	- tmp * tmat[2][3];
+      tmat[4][4] 
+	- tmp * tmat[2][4];
+      v[i][j][k][4] 
+	- v[i][j][k][2] * tmp;
+      tmp1 
+      tmp 
+      tmat[4][4] 
+	- tmp * tmat[3][4];
+      v[i][j][k][4] 
+	- v[i][j][k][3] * tmp;
+      v[i][j][k][4] 
+	/ tmat[4][4];
+      v[i][j][k][3] 
+	- tmat[3][4] * v[i][j][k][4];
+      v[i][j][k][3] 
+	/ tmat[3][3];
+      v[i][j][k][2] 
+	- tmat[2][3] * v[i][j][k][3]
+	- tmat[2][4] * v[i][j][k][4];
+      v[i][j][k][2] 
+	/ tmat[2][2];
+      v[i][j][k][1] 
+	- tmat[1][2] * v[i][j][k][2]
+	- tmat[1][3] * v[i][j][k][3]
+	- tmat[1][4] * v[i][j][k][4];
+      v[i][j][k][1] 
+	/ tmat[1][1];
+      v[i][j][k][0] 
+	- tmat[0][1] * v[i][j][k][1]
+	- tmat[0][2] * v[i][j][k][2]
+	- tmat[0][3] * v[i][j][k][3]
+	- tmat[0][4] * v[i][j][k][4];
+      v[i][j][k][0] 
+	/ tmat[0][0];
+		 double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+		 double tv[ISIZ1][ISIZ2][5],
+		 double d[ISIZ1][ISIZ2][5][5],
+		 double udx[ISIZ1][ISIZ2][5][5],
+		 double udy[ISIZ1][ISIZ2][5][5],
+		 double udz[ISIZ1][ISIZ2][5][5],
+  double tmat[5][5];
+	tv[i][j][m] 
+	  omega * (  udz[i][j][m][0] * v[i][j][k+1][0]
+		     + udz[i][j][m][1] * v[i][j][k+1][1]
+		     + udz[i][j][m][2] * v[i][j][k+1][2]
+		     + udz[i][j][m][3] * v[i][j][k+1][3]
+		     + udz[i][j][m][4] * v[i][j][k+1][4] );
+	tv[i][j][m] 
+	  + omega * ( udy[i][j][m][0] * v[i][j+1][k][0]
+		      + udx[i][j][m][0] * v[i+1][j][k][0]
+		      + udy[i][j][m][1] * v[i][j+1][k][1]
+		      + udx[i][j][m][1] * v[i+1][j][k][1]
+		      + udy[i][j][m][2] * v[i][j+1][k][2]
+		      + udx[i][j][m][2] * v[i+1][j][k][2]
+		      + udy[i][j][m][3] * v[i][j+1][k][3]
+		      + udx[i][j][m][3] * v[i+1][j][k][3]
+		      + udy[i][j][m][4] * v[i][j+1][k][4]
+		      + udx[i][j][m][4] * v[i+1][j][k][4] );
+	tmat[m][0] 
+	tmat[m][1] 
+	tmat[m][2] 
+	tmat[m][3] 
+	tmat[m][4] 
+      tmp1 
+      tmp 
+      tmat[1][1] 
+	- tmp * tmat[0][1];
+      tmat[1][2] 
+	- tmp * tmat[0][2];
+      tmat[1][3] 
+	- tmp * tmat[0][3];
+      tmat[1][4] 
+	- tmp * tmat[0][4];
+      tv[i][j][1] 
+	- tv[i][j][0] * tmp;
+      tmp 
+      tmat[2][1] 
+	- tmp * tmat[0][1];
+      tmat[2][2] 
+	- tmp * tmat[0][2];
+      tmat[2][3] 
+	- tmp * tmat[0][3];
+      tmat[2][4] 
+	- tmp * tmat[0][4];
+      tv[i][j][2] 
+	- tv[i][j][0] * tmp;
+      tmp 
+      tmat[3][1] 
+	- tmp * tmat[0][1];
+      tmat[3][2] 
+	- tmp * tmat[0][2];
+      tmat[3][3] 
+	- tmp * tmat[0][3];
+      tmat[3][4] 
+	- tmp * tmat[0][4];
+      tv[i][j][3] 
+	- tv[i][j][0] * tmp;
+      tmp 
+      tmat[4][1] 
+	- tmp * tmat[0][1];
+      tmat[4][2] 
+	- tmp * tmat[0][2];
+      tmat[4][3] 
+	- tmp * tmat[0][3];
+      tmat[4][4] 
+	- tmp * tmat[0][4];
+      tv[i][j][4] 
+	- tv[i][j][0] * tmp;
+      tmp1 
+      tmp 
+      tmat[2][2] 
+	- tmp * tmat[1][2];
+      tmat[2][3] 
+	- tmp * tmat[1][3];
+      tmat[2][4] 
+	- tmp * tmat[1][4];
+      tv[i][j][2] 
+	- tv[i][j][1] * tmp;
+      tmp 
+      tmat[3][2] 
+	- tmp * tmat[1][2];
+      tmat[3][3] 
+	- tmp * tmat[1][3];
+      tmat[3][4] 
+	- tmp * tmat[1][4];
+      tv[i][j][3] 
+	- tv[i][j][1] * tmp;
+      tmp 
+      tmat[4][2] 
+	- tmp * tmat[1][2];
+      tmat[4][3] 
+	- tmp * tmat[1][3];
+      tmat[4][4] 
+	- tmp * tmat[1][4];
+      tv[i][j][4] 
+	- tv[i][j][1] * tmp;
+      tmp1 
+      tmp 
+      tmat[3][3] 
+	- tmp * tmat[2][3];
+      tmat[3][4] 
+	- tmp * tmat[2][4];
+      tv[i][j][3] 
+	- tv[i][j][2] * tmp;
+      tmp 
+      tmat[4][3] 
+	- tmp * tmat[2][3];
+      tmat[4][4] 
+	- tmp * tmat[2][4];
+      tv[i][j][4] 
+	- tv[i][j][2] * tmp;
+      tmp1 
+      tmp 
+      tmat[4][4] 
+	- tmp * tmat[3][4];
+      tv[i][j][4] 
+	- tv[i][j][3] * tmp;
+      tv[i][j][4] 
+	/ tmat[4][4];
+      tv[i][j][3] 
+	- tmat[3][4] * tv[i][j][4];
+      tv[i][j][3] 
+	/ tmat[3][3];
+      tv[i][j][2] 
+	- tmat[2][3] * tv[i][j][3]
+	- tmat[2][4] * tv[i][j][4];
+      tv[i][j][2] 
+	/ tmat[2][2];
+      tv[i][j][1] 
+	- tmat[1][2] * tv[i][j][2]
+	- tmat[1][3] * tv[i][j][3]
+	- tmat[1][4] * tv[i][j][4];
+      tv[i][j][1] 
+	/ tmat[1][1];
+      tv[i][j][0] 
+	- tmat[0][1] * tv[i][j][1]
+	- tmat[0][2] * tv[i][j][2]
+	- tmat[0][3] * tv[i][j][3]
+	- tmat[0][4] * tv[i][j][4];
+      tv[i][j][0] 
+	/ tmat[0][0];
+      v[i][j][k][0] 
+      v[i][j][k][1] 
+      v[i][j][k][2] 
+      v[i][j][k][3] 
+      v[i][j][k][4] 
+	  frct[i][j][k][m] 
+	  rsd[i][j][k][m] 
+	    + ce[m][1] * xi
+	    + ce[m][2] * eta
+	    + ce[m][3] * zeta
+	    + ce[m][4] * xi * xi
+	    + ce[m][5] * eta * eta
+	    + ce[m][6] * zeta * zeta
+	    + ce[m][7] * xi * xi * xi
+	    + ce[m][8] * eta * eta * eta
+	    + ce[m][9] * zeta * zeta * zeta
+	    + ce[m][10] * xi * xi * xi * xi
+	    + ce[m][11] * eta * eta * eta * eta
+	    + ce[m][12] * zeta * zeta * zeta * zeta;
+	flux[i][j][k][0] 
+	u21 
+	q 
+		      + rsd[i][j][k][2] * rsd[i][j][k][2]
+		      + rsd[i][j][k][3] * rsd[i][j][k][3] )
+	  / rsd[i][j][k][0];
+	flux[i][j][k][1] 
+	  ( rsd[i][j][k][4] - q );
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	  frct[i][j][k][m] 
+	    - tx2 * ( flux[i+1][j][k][m] - flux[i-1][j][k][m] );
+	tmp 
+	u21i 
+	u31i 
+	u41i 
+	u51i 
+	tmp 
+	u21im1 
+	u31im1 
+	u41im1 
+	u51im1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	frct[i][j][k][0] 
+	  + dx1 * tx1 * (            rsd[i-1][j][k][0]
+				     - 2.0 * rsd[i][j][k][0]
+				     +       	    rsd[i+1][j][k][0] );
+	frct[i][j][k][1] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][1] - flux[i][j][k][1] )
+	  + dx2 * tx1 * (            rsd[i-1][j][k][1]
+				     - 2.0 * rsd[i][j][k][1]
+				     +           rsd[i+1][j][k][1] );
+	frct[i][j][k][2] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][2] - flux[i][j][k][2] )
+	  + dx3 * tx1 * (            rsd[i-1][j][k][2]
+				     - 2.0 * rsd[i][j][k][2]
+				     +           rsd[i+1][j][k][2] );
+	frct[i][j][k][3] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][3] - flux[i][j][k][3] )
+	  + dx4 * tx1 * (            rsd[i-1][j][k][3]
+				     - 2.0 * rsd[i][j][k][3]
+				     +           rsd[i+1][j][k][3] );
+	frct[i][j][k][4] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][4] - flux[i][j][k][4] )
+	  + dx5 * tx1 * (            rsd[i-1][j][k][4]
+				     - 2.0 * rsd[i][j][k][4]
+				     +           rsd[i+1][j][k][4] );
+	frct[1][j][k][m] 
+	  - dsspm * ( + 5.0 * rsd[1][j][k][m]
+		      - 4.0 * rsd[2][j][k][m]
+		      +           rsd[3][j][k][m] );
+	frct[2][j][k][m] 
+	  - dsspm * ( - 4.0 * rsd[1][j][k][m]
+		      + 6.0 * rsd[2][j][k][m]
+		      - 4.0 * rsd[3][j][k][m]
+		      +           rsd[4][j][k][m] );
+	  frct[i][j][k][m] 
+	    - dsspm * (            rsd[i-2][j][k][m]
+				   - 4.0 * rsd[i-1][j][k][m]
+				   + 6.0 * rsd[i][j][k][m]
+				   - 4.0 * rsd[i+1][j][k][m]
+				   +           rsd[i+2][j][k][m] );
+	frct[nx-3][j][k][m] 
+	  - dsspm * (             rsd[nx-5][j][k][m]
+				  - 4.0 * rsd[nx-4][j][k][m]
+				  + 6.0 * rsd[nx-3][j][k][m]
+				  - 4.0 * rsd[nx-2][j][k][m]  );
+	frct[nx-2][j][k][m] 
+	  - dsspm * (             rsd[nx-4][j][k][m]
+				  - 4.0 * rsd[nx-3][j][k][m]
+				  + 5.0 * rsd[nx-2][j][k][m] );
+	flux[i][j][k][0] 
+	u31 
+	q 
+		      + rsd[i][j][k][2] * rsd[i][j][k][2]
+		      + rsd[i][j][k][3] * rsd[i][j][k][3] )
+	  / rsd[i][j][k][0];
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	  ( rsd[i][j][k][4] - q );
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	  frct[i][j][k][m] 
+	    - ty2 * ( flux[i][j+1][k][m] - flux[i][j-1][k][m] );
+	tmp 
+	u21j 
+	u31j 
+	u41j 
+	u51j 
+	tmp 
+	u21jm1 
+	u31jm1 
+	u41jm1 
+	u51jm1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	frct[i][j][k][0] 
+	  + dy1 * ty1 * (            rsd[i][j-1][k][0]
+				     - 2.0 * rsd[i][j][k][0]
+				     +           rsd[i][j+1][k][0] );
+	frct[i][j][k][1] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][1] - flux[i][j][k][1] )
+	  + dy2 * ty1 * (            rsd[i][j-1][k][1]
+				     - 2.0 * rsd[i][j][k][1]
+				     +           rsd[i][j+1][k][1] );
+	frct[i][j][k][2] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][2] - flux[i][j][k][2] )
+	  + dy3 * ty1 * (            rsd[i][j-1][k][2]
+				     - 2.0 * rsd[i][j][k][2]
+				     +           rsd[i][j+1][k][2] );
+	frct[i][j][k][3] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][3] - flux[i][j][k][3] )
+	  + dy4 * ty1 * (            rsd[i][j-1][k][3]
+				     - 2.0 * rsd[i][j][k][3]
+				     +           rsd[i][j+1][k][3] );
+	frct[i][j][k][4] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][4] - flux[i][j][k][4] )
+	  + dy5 * ty1 * (            rsd[i][j-1][k][4]
+				     - 2.0 * rsd[i][j][k][4]
+				     +           rsd[i][j+1][k][4] );
+	frct[i][1][k][m] 
+	  - dsspm * ( + 5.0 * rsd[i][1][k][m]
+		      - 4.0 * rsd[i][2][k][m]
+		      +           rsd[i][3][k][m] );
+	frct[i][2][k][m] 
+	  - dsspm * ( - 4.0 * rsd[i][1][k][m]
+		      + 6.0 * rsd[i][2][k][m]
+		      - 4.0 * rsd[i][3][k][m]
+		      +           rsd[i][4][k][m] );
+	  frct[i][j][k][m] 
+	    - dsspm * (            rsd[i][j-2][k][m]
+				   - 4.0 * rsd[i][j-1][k][m]
+				   + 6.0 * rsd[i][j][k][m]
+				   - 4.0 * rsd[i][j+1][k][m]
+				   +           rsd[i][j+2][k][m] );
+	frct[i][ny-3][k][m] 
+	  - dsspm * (             rsd[i][ny-5][k][m]
+				  - 4.0 * rsd[i][ny-4][k][m]
+				  + 6.0 * rsd[i][ny-3][k][m]
+				  - 4.0 * rsd[i][ny-2][k][m]  );
+	frct[i][ny-2][k][m] 
+	  - dsspm * (             rsd[i][ny-4][k][m]
+				  - 4.0 * rsd[i][ny-3][k][m]
+				  + 5.0 * rsd[i][ny-2][k][m]  );
+	flux[i][j][k][0] 
+	u41 
+	q 
+		      + rsd[i][j][k][2] * rsd[i][j][k][2]
+		      + rsd[i][j][k][3] * rsd[i][j][k][3] )
+	  / rsd[i][j][k][0];
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	  ( rsd[i][j][k][4] - q );
+	flux[i][j][k][4] 
+	  frct[i][j][k][m] 
+	    - tz2 * ( flux[i][j][k+1][m] - flux[i][j][k-1][m] );
+	tmp 
+	u21k 
+	u31k 
+	u41k 
+	u51k 
+	tmp 
+	u21km1 
+	u31km1 
+	u41km1 
+	u51km1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	frct[i][j][k][0] 
+	  + dz1 * tz1 * (            rsd[i][j][k+1][0]
+				     - 2.0 * rsd[i][j][k][0]
+				     +           rsd[i][j][k-1][0] );
+	frct[i][j][k][1] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][1] - flux[i][j][k][1] )
+	  + dz2 * tz1 * (            rsd[i][j][k+1][1]
+				     - 2.0 * rsd[i][j][k][1]
+				     +           rsd[i][j][k-1][1] );
+	frct[i][j][k][2] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][2] - flux[i][j][k][2] )
+	  + dz3 * tz1 * (            rsd[i][j][k+1][2]
+				     - 2.0 * rsd[i][j][k][2]
+				     +           rsd[i][j][k-1][2] );
+	frct[i][j][k][3] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][3] - flux[i][j][k][3] )
+	  + dz4 * tz1 * (            rsd[i][j][k+1][3]
+				     - 2.0 * rsd[i][j][k][3]
+				     +           rsd[i][j][k-1][3] );
+	frct[i][j][k][4] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][4] - flux[i][j][k][4] )
+	  + dz5 * tz1 * (            rsd[i][j][k+1][4]
+				     - 2.0 * rsd[i][j][k][4]
+				     +           rsd[i][j][k-1][4] );
+	frct[i][j][1][m] 
+	  - dsspm * ( + 5.0 * rsd[i][j][1][m]
+		      - 4.0 * rsd[i][j][2][m]
+		      +           rsd[i][j][3][m] );
+	frct[i][j][2][m] 
+	  - dsspm * (- 4.0 * rsd[i][j][1][m]
+		     + 6.0 * rsd[i][j][2][m]
+		     - 4.0 * rsd[i][j][3][m]
+		     +           rsd[i][j][4][m] );
+	  frct[i][j][k][m] 
+	    - dsspm * (           rsd[i][j][k-2][m]
+				  - 4.0 * rsd[i][j][k-1][m]
+				  + 6.0 * rsd[i][j][k][m]
+				  - 4.0 * rsd[i][j][k+1][m]
+				  +           rsd[i][j][k+2][m] );
+	frct[i][j][nz-3][m] 
+	  - dsspm * (            rsd[i][j][nz-5][m]
+				 - 4.0 * rsd[i][j][nz-4][m]
+				 + 6.0 * rsd[i][j][nz-3][m]
+				 - 4.0 * rsd[i][j][nz-2][m]  );
+        frct[i][j][nz-2][m] 
+	  - dsspm * (             rsd[i][j][nz-4][m]
+				  - 4.0 * rsd[i][j][nz-3][m]
+				  + 5.0 * rsd[i][j][nz-2][m]  );
+	  tmp 
+    u000ijk[m] 
+      + ce[m][1] * xi
+      + ce[m][2] * eta
+      + ce[m][3] * zeta
+      + ce[m][4] * xi * xi
+      + ce[m][5] * eta * eta
+      + ce[m][6] * zeta * zeta
+      + ce[m][7] * xi * xi * xi
+      + ce[m][8] * eta * eta * eta
+      + ce[m][9] * zeta * zeta * zeta
+      + ce[m][10] * xi * xi * xi * xi
+      + ce[m][11] * eta * eta * eta * eta
+      + ce[m][12] * zeta * zeta * zeta * zeta;
+      tmp1 
+      d[i][j][0][0] 
+      d[i][j][0][1] 
+      d[i][j][0][2] 
+      d[i][j][0][3] 
+      d[i][j][0][4] 
+      d[i][j][1][0] 
+	* (  tx1 * ( - r43 * c34 * tmp2 * u[i][j][k][1] )
+	     + ty1 * ( -       c34 * tmp2 * u[i][j][k][1] )
+	     + tz1 * ( -       c34 * tmp2 * u[i][j][k][1] ) );
+      d[i][j][1][1] 
+      d[i][j][1][2] 
+      d[i][j][1][3] 
+      d[i][j][1][4] 
+      d[i][j][2][0] 
+	* (  tx1 * ( -       c34 * tmp2 * u[i][j][k][2] )
+	     + ty1 * ( - r43 * c34 * tmp2 * u[i][j][k][2] )
+	     + tz1 * ( -       c34 * tmp2 * u[i][j][k][2] ) );
+      d[i][j][2][1] 
+      d[i][j][2][2] 
+      d[i][j][2][3] 
+      d[i][j][2][4] 
+      d[i][j][3][0] 
+	* (  tx1 * ( -       c34 * tmp2 * u[i][j][k][3] )
+	     + ty1 * ( -       c34 * tmp2 * u[i][j][k][3] )
+	     + tz1 * ( - r43 * c34 * tmp2 * u[i][j][k][3] ) );
+      d[i][j][3][1] 
+      d[i][j][3][2] 
+      d[i][j][3][3] 
+      d[i][j][3][4] 
+      d[i][j][4][0] 
+	* ( tx1 * ( - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		    - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		    - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		    - ( c1345 ) * tmp2 * u[i][j][k][4] )
+	    + ty1 * ( - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		      - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		      - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		      - ( c1345 ) * tmp2 * u[i][j][k][4] )
+	    + tz1 * ( - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		      - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		      - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		      - ( c1345 ) * tmp2 * u[i][j][k][4] ) );
+      d[i][j][4][1] 
+	* ( tx1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k][1]
+	    + ty1 * (     c34 - c1345 ) * tmp2 * u[i][j][k][1]
+	    + tz1 * (     c34 - c1345 ) * tmp2 * u[i][j][k][1] );
+      d[i][j][4][2] 
+	* ( tx1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][2]
+	    + ty1 * ( r43*c34 -c1345 ) * tmp2 * u[i][j][k][2]
+	    + tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][2] );
+      d[i][j][4][3] 
+	* ( tx1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][3]
+	    + ty1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][3]
+	    + tz1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k][3] );
+      d[i][j][4][4] 
+      tmp1 
+      a[i][j][0][0] 
+      a[i][j][0][1] 
+      a[i][j][0][2] 
+      a[i][j][0][3] 
+      a[i][j][0][4] 
+      a[i][j][1][0] 
+	* ( - ( u[i][j][k-1][1]*u[i][j][k-1][3] ) * tmp2 )
+	- dt * tz1 * ( - c34 * tmp2 * u[i][j][k-1][1] );
+      a[i][j][1][1] 
+      a[i][j][1][2] 
+      a[i][j][1][3] 
+      a[i][j][1][4] 
+      a[i][j][2][0] 
+	* ( - ( u[i][j][k-1][2]*u[i][j][k-1][3] ) * tmp2 )
+	- dt * tz1 * ( - c34 * tmp2 * u[i][j][k-1][2] );
+      a[i][j][2][1] 
+      a[i][j][2][2] 
+      a[i][j][2][3] 
+      a[i][j][2][4] 
+      a[i][j][3][0] 
+	* ( - ( u[i][j][k-1][3] * tmp1 ) *( u[i][j][k-1][3] * tmp1 )
+	    * ( ( u[i][j][k-1][1] * u[i][j][k-1][1]
+		  + u[i][j][k-1][2] * u[i][j][k-1][2]
+		  + u[i][j][k-1][3] * u[i][j][k-1][3] ) * tmp2 ) )
+	- dt * tz1 * ( - r43 * c34 * tmp2 * u[i][j][k-1][3] );
+      a[i][j][3][1] 
+	* ( - C2 * ( u[i][j][k-1][1] * tmp1 ) );
+      a[i][j][3][2] 
+	* ( - C2 * ( u[i][j][k-1][2] * tmp1 ) );
+      a[i][j][3][3] 
+	* ( u[i][j][k-1][3] * tmp1 )
+      a[i][j][3][4] 
+      a[i][j][4][0] 
+	* ( ( C2 * (  u[i][j][k-1][1] * u[i][j][k-1][1]
+                      + u[i][j][k-1][2] * u[i][j][k-1][2]
+                      + u[i][j][k-1][3] * u[i][j][k-1][3] ) * tmp2
+	      - C1 * ( u[i][j][k-1][4] * tmp1 ) )
+	    * ( u[i][j][k-1][3] * tmp1 ) )
+	* ( - ( c34 - c1345 ) * tmp3 * (u[i][j][k-1][1]*u[i][j][k-1][1])
+	    - ( c34 - c1345 ) * tmp3 * (u[i][j][k-1][2]*u[i][j][k-1][2])
+	    - ( r43*c34 - c1345 )* tmp3 * (u[i][j][k-1][3]*u[i][j][k-1][3])
+	    - c1345 * tmp2 * u[i][j][k-1][4] );
+      a[i][j][4][1] 
+	* ( - C2 * ( u[i][j][k-1][1]*u[i][j][k-1][3] ) * tmp2 )
+	- dt * tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k-1][1];
+      a[i][j][4][2] 
+	* ( - C2 * ( u[i][j][k-1][2]*u[i][j][k-1][3] ) * tmp2 )
+	- dt * tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k-1][2];
+      a[i][j][4][3] 
+	* ( C1 * ( u[i][j][k-1][4] * tmp1 )
+            * ( (  u[i][j][k-1][1]*u[i][j][k-1][1]
+		   + u[i][j][k-1][2]*u[i][j][k-1][2]
+		   + 3.0*u[i][j][k-1][3]*u[i][j][k-1][3] ) * tmp2 ) )
+	- dt * tz1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k-1][3];
+      a[i][j][4][4] 
+	* ( C1 * ( u[i][j][k-1][3] * tmp1 ) )
+      tmp1 
+      b[i][j][0][0] 
+      b[i][j][0][1] 
+      b[i][j][0][2] 
+      b[i][j][0][3] 
+      b[i][j][0][4] 
+      b[i][j][1][0] 
+	* ( - ( u[i][j-1][k][1]*u[i][j-1][k][2] ) * tmp2 )
+	- dt * ty1 * ( - c34 * tmp2 * u[i][j-1][k][1] );
+      b[i][j][1][1] 
+      b[i][j][1][2] 
+      b[i][j][1][3] 
+      b[i][j][1][4] 
+      b[i][j][2][0] 
+	* ( - ( u[i][j-1][k][2] * tmp1 ) *( u[i][j-1][k][2] * tmp1 )
+	    + 0.50 * C2 * ( (  u[i][j-1][k][1] * u[i][j-1][k][1]
+			       + u[i][j-1][k][2] * u[i][j-1][k][2]
+			       + u[i][j-1][k][3] * u[i][j-1][k][3] )
+	- dt * ty1 * ( - r43 * c34 * tmp2 * u[i][j-1][k][2] );
+      b[i][j][2][1] 
+	* ( - C2 * ( u[i][j-1][k][1] * tmp1 ) );
+      b[i][j][2][2] 
+				  * ( u[i][j-1][k][2] * tmp1 ) )
+      b[i][j][2][3] 
+	* ( - C2 * ( u[i][j-1][k][3] * tmp1 ) );
+      b[i][j][2][4] 
+      b[i][j][3][0] 
+	* ( - ( u[i][j-1][k][2]*u[i][j-1][k][3] ) * tmp2 )
+	- dt * ty1 * ( - c34 * tmp2 * u[i][j-1][k][3] );
+      b[i][j][3][1] 
+      b[i][j][3][2] 
+      b[i][j][3][3] 
+      b[i][j][3][4] 
+      b[i][j][4][0] 
+	* ( ( C2 * (  u[i][j-1][k][1] * u[i][j-1][k][1]
+		      + u[i][j-1][k][2] * u[i][j-1][k][2]
+		      + u[i][j-1][k][3] * u[i][j-1][k][3] ) * tmp2
+	      - C1 * ( u[i][j-1][k][4] * tmp1 ) )
+	    * ( u[i][j-1][k][2] * tmp1 ) )
+	* ( - (     c34 - c1345 )*tmp3*(pow2(u[i][j-1][k][1]))
+	    - ( r43*c34 - c1345 )*tmp3*(pow2(u[i][j-1][k][2]))
+	    - (     c34 - c1345 )*tmp3*(pow2(u[i][j-1][k][3]))
+	    - c1345*tmp2*u[i][j-1][k][4] );
+      b[i][j][4][1] 
+	* ( - C2 * ( u[i][j-1][k][1]*u[i][j-1][k][2] ) * tmp2 )
+	* ( c34 - c1345 ) * tmp2 * u[i][j-1][k][1];
+      b[i][j][4][2] 
+	* ( C1 * ( u[i][j-1][k][4] * tmp1 )
+	    * ( (  u[i][j-1][k][1]*u[i][j-1][k][1]
+                   + 3.0 * u[i][j-1][k][2]*u[i][j-1][k][2]
+		   + u[i][j-1][k][3]*u[i][j-1][k][3] ) * tmp2 ) )
+	* ( r43*c34 - c1345 ) * tmp2 * u[i][j-1][k][2];
+      b[i][j][4][3] 
+	* ( - C2 * ( u[i][j-1][k][2]*u[i][j-1][k][3] ) * tmp2 )
+	- dt * ty1 * ( c34 - c1345 ) * tmp2 * u[i][j-1][k][3];
+      b[i][j][4][4] 
+	* ( C1 * ( u[i][j-1][k][2] * tmp1 ) )
+      tmp1 
+      c[i][j][0][0] 
+      c[i][j][0][1] 
+      c[i][j][0][2] 
+      c[i][j][0][3] 
+      c[i][j][0][4] 
+      c[i][j][1][0] 
+	* ( - ( u[i-1][j][k][1] * tmp1 ) *( u[i-1][j][k][1] * tmp1 )
+	    + C2 * 0.50 * (  u[i-1][j][k][1] * u[i-1][j][k][1]
+                             + u[i-1][j][k][2] * u[i-1][j][k][2]
+                             + u[i-1][j][k][3] * u[i-1][j][k][3] ) * tmp2 )
+	- dt * tx1 * ( - r43 * c34 * tmp2 * u[i-1][j][k][1] );
+      c[i][j][1][1] 
+	* ( ( 2.0 - C2 ) * ( u[i-1][j][k][1] * tmp1 ) )
+      c[i][j][1][2] 
+	* ( - C2 * ( u[i-1][j][k][2] * tmp1 ) );
+      c[i][j][1][3] 
+	* ( - C2 * ( u[i-1][j][k][3] * tmp1 ) );
+      c[i][j][1][4] 
+      c[i][j][2][0] 
+	* ( - ( u[i-1][j][k][1] * u[i-1][j][k][2] ) * tmp2 )
+	- dt * tx1 * ( - c34 * tmp2 * u[i-1][j][k][2] );
+      c[i][j][2][1] 
+      c[i][j][2][2] 
+      c[i][j][2][3] 
+      c[i][j][2][4] 
+      c[i][j][3][0] 
+	* ( - ( u[i-1][j][k][1]*u[i-1][j][k][3] ) * tmp2 )
+	- dt * tx1 * ( - c34 * tmp2 * u[i-1][j][k][3] );
+      c[i][j][3][1] 
+      c[i][j][3][2] 
+      c[i][j][3][3] 
+      c[i][j][3][4] 
+      c[i][j][4][0] 
+	* ( ( C2 * (  u[i-1][j][k][1] * u[i-1][j][k][1]
+		      + u[i-1][j][k][2] * u[i-1][j][k][2]
+		      + u[i-1][j][k][3] * u[i-1][j][k][3] ) * tmp2
+	      - C1 * ( u[i-1][j][k][4] * tmp1 ) )
+	    * ( u[i-1][j][k][1] * tmp1 ) )
+	* ( - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i-1][j][k][1]) )
+	    - (     c34 - c1345 ) * tmp3 * ( pow2(u[i-1][j][k][2]) )
+	    - (     c34 - c1345 ) * tmp3 * ( pow2(u[i-1][j][k][3]) )
+	    - c1345 * tmp2 * u[i-1][j][k][4] );
+      c[i][j][4][1] 
+	* ( C1 * ( u[i-1][j][k][4] * tmp1 )
+	    * ( (  3.0*u[i-1][j][k][1]*u[i-1][j][k][1]
+		   + u[i-1][j][k][2]*u[i-1][j][k][2]
+		   + u[i-1][j][k][3]*u[i-1][j][k][3] ) * tmp2 ) )
+	* ( r43*c34 - c1345 ) * tmp2 * u[i-1][j][k][1];
+      c[i][j][4][2] 
+	* ( - C2 * ( u[i-1][j][k][2]*u[i-1][j][k][1] ) * tmp2 )
+	* (  c34 - c1345 ) * tmp2 * u[i-1][j][k][2];
+      c[i][j][4][3] 
+	* ( - C2 * ( u[i-1][j][k][3]*u[i-1][j][k][1] ) * tmp2 )
+	* (  c34 - c1345 ) * tmp2 * u[i-1][j][k][3];
+      c[i][j][4][4] 
+	* ( C1 * ( u[i-1][j][k][1] * tmp1 ) )
+      tmp1 
+      d[i][j][0][0] 
+      d[i][j][0][1] 
+      d[i][j][0][2] 
+      d[i][j][0][3] 
+      d[i][j][0][4] 
+      d[i][j][1][0] 
+	* (  tx1 * ( - r43 * c34 * tmp2 * u[i][j][k][1] )
+	     + ty1 * ( -       c34 * tmp2 * u[i][j][k][1] )
+	     + tz1 * ( -       c34 * tmp2 * u[i][j][k][1] ) );
+      d[i][j][1][1] 
+      d[i][j][1][2] 
+      d[i][j][1][3] 
+      d[i][j][1][4] 
+      d[i][j][2][0] 
+	* (  tx1 * ( -       c34 * tmp2 * u[i][j][k][2] )
+	     + ty1 * ( - r43 * c34 * tmp2 * u[i][j][k][2] )
+	     + tz1 * ( -       c34 * tmp2 * u[i][j][k][2] ) );
+      d[i][j][2][1] 
+      d[i][j][2][2] 
+      d[i][j][2][3] 
+      d[i][j][2][4] 
+      d[i][j][3][0] 
+	* (  tx1 * ( -       c34 * tmp2 * u[i][j][k][3] )
+	     + ty1 * ( -       c34 * tmp2 * u[i][j][k][3] )
+	     + tz1 * ( - r43 * c34 * tmp2 * u[i][j][k][3] ) );
+      d[i][j][3][1] 
+      d[i][j][3][2] 
+      d[i][j][3][3] 
+      d[i][j][3][4] 
+      d[i][j][4][0] 
+	* ( tx1 * ( - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		    - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		    - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		    - ( c1345 ) * tmp2 * u[i][j][k][4] )
+	    + ty1 * ( - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		      - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		      - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		      - ( c1345 ) * tmp2 * u[i][j][k][4] )
+	    + tz1 * ( - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][1]) )
+		      - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][2]) )
+		      - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k][3]) )
+		      - ( c1345 ) * tmp2 * u[i][j][k][4] ) );
+      d[i][j][4][1] 
+	* ( tx1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k][1]
+	    + ty1 * (     c34 - c1345 ) * tmp2 * u[i][j][k][1]
+	    + tz1 * (     c34 - c1345 ) * tmp2 * u[i][j][k][1] );
+      d[i][j][4][2] 
+	* ( tx1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][2]
+	    + ty1 * ( r43*c34 -c1345 ) * tmp2 * u[i][j][k][2]
+	    + tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][2] );
+      d[i][j][4][3] 
+	* ( tx1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][3]
+	    + ty1 * ( c34 - c1345 ) * tmp2 * u[i][j][k][3]
+	    + tz1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k][3] );
+      d[i][j][4][4] 
+      tmp1 
+      a[i][j][0][0] 
+      a[i][j][0][1] 
+      a[i][j][0][2] 
+      a[i][j][0][3] 
+      a[i][j][0][4] 
+      a[i][j][1][0] 
+	* ( - ( u[i+1][j][k][1] * tmp1 ) *( u[i+1][j][k][1] * tmp1 )
+	    + C2 * 0.50 * (  u[i+1][j][k][1] * u[i+1][j][k][1]
+                             + u[i+1][j][k][2] * u[i+1][j][k][2]
+                             + u[i+1][j][k][3] * u[i+1][j][k][3] ) * tmp2 )
+	- dt * tx1 * ( - r43 * c34 * tmp2 * u[i+1][j][k][1] );
+      a[i][j][1][1] 
+	* ( ( 2.0 - C2 ) * ( u[i+1][j][k][1] * tmp1 ) )
+      a[i][j][1][2] 
+	* ( - C2 * ( u[i+1][j][k][2] * tmp1 ) );
+      a[i][j][1][3] 
+	* ( - C2 * ( u[i+1][j][k][3] * tmp1 ) );
+      a[i][j][1][4] 
+      a[i][j][2][0] 
+	* ( - ( u[i+1][j][k][1] * u[i+1][j][k][2] ) * tmp2 )
+	- dt * tx1 * ( - c34 * tmp2 * u[i+1][j][k][2] );
+      a[i][j][2][1] 
+      a[i][j][2][2] 
+      a[i][j][2][3] 
+      a[i][j][2][4] 
+      a[i][j][3][0] 
+	* ( - ( u[i+1][j][k][1]*u[i+1][j][k][3] ) * tmp2 )
+	- dt * tx1 * ( - c34 * tmp2 * u[i+1][j][k][3] );
+      a[i][j][3][1] 
+      a[i][j][3][2] 
+      a[i][j][3][3] 
+      a[i][j][3][4] 
+      a[i][j][4][0] 
+	* ( ( C2 * (  u[i+1][j][k][1] * u[i+1][j][k][1]
+		      + u[i+1][j][k][2] * u[i+1][j][k][2]
+		      + u[i+1][j][k][3] * u[i+1][j][k][3] ) * tmp2
+	      - C1 * ( u[i+1][j][k][4] * tmp1 ) )
+	    * ( u[i+1][j][k][1] * tmp1 ) )
+	* ( - ( r43*c34 - c1345 ) * tmp3 * ( pow2(u[i+1][j][k][1]) )
+	    - (     c34 - c1345 ) * tmp3 * ( pow2(u[i+1][j][k][2]) )
+	    - (     c34 - c1345 ) * tmp3 * ( pow2(u[i+1][j][k][3]) )
+	    - c1345 * tmp2 * u[i+1][j][k][4] );
+      a[i][j][4][1] 
+	* ( C1 * ( u[i+1][j][k][4] * tmp1 )
+	    * ( (  3.0*u[i+1][j][k][1]*u[i+1][j][k][1]
+		   + u[i+1][j][k][2]*u[i+1][j][k][2]
+		   + u[i+1][j][k][3]*u[i+1][j][k][3] ) * tmp2 ) )
+	* ( r43*c34 - c1345 ) * tmp2 * u[i+1][j][k][1];
+      a[i][j][4][2] 
+	* ( - C2 * ( u[i+1][j][k][2]*u[i+1][j][k][1] ) * tmp2 )
+	* (  c34 - c1345 ) * tmp2 * u[i+1][j][k][2];
+      a[i][j][4][3] 
+	* ( - C2 * ( u[i+1][j][k][3]*u[i+1][j][k][1] ) * tmp2 )
+	* (  c34 - c1345 ) * tmp2 * u[i+1][j][k][3];
+      a[i][j][4][4] 
+	* ( C1 * ( u[i+1][j][k][1] * tmp1 ) )
+      tmp1 
+      b[i][j][0][0] 
+      b[i][j][0][1] 
+      b[i][j][0][2] 
+      b[i][j][0][3] 
+      b[i][j][0][4] 
+      b[i][j][1][0] 
+	* ( - ( u[i][j+1][k][1]*u[i][j+1][k][2] ) * tmp2 )
+	- dt * ty1 * ( - c34 * tmp2 * u[i][j+1][k][1] );
+      b[i][j][1][1] 
+      b[i][j][1][2] 
+      b[i][j][1][3] 
+      b[i][j][1][4] 
+      b[i][j][2][0] 
+	* ( - ( u[i][j+1][k][2] * tmp1 ) *( u[i][j+1][k][2] * tmp1 )
+	    + 0.50 * C2 * ( (  u[i][j+1][k][1] * u[i][j+1][k][1]
+			       + u[i][j+1][k][2] * u[i][j+1][k][2]
+			       + u[i][j+1][k][3] * u[i][j+1][k][3] )
+	- dt * ty1 * ( - r43 * c34 * tmp2 * u[i][j+1][k][2] );
+      b[i][j][2][1] 
+	* ( - C2 * ( u[i][j+1][k][1] * tmp1 ) );
+      b[i][j][2][2] 
+				 * ( u[i][j+1][k][2] * tmp1 ) )
+      b[i][j][2][3] 
+	* ( - C2 * ( u[i][j+1][k][3] * tmp1 ) );
+      b[i][j][2][4] 
+      b[i][j][3][0] 
+	* ( - ( u[i][j+1][k][2]*u[i][j+1][k][3] ) * tmp2 )
+	- dt * ty1 * ( - c34 * tmp2 * u[i][j+1][k][3] );
+      b[i][j][3][1] 
+      b[i][j][3][2] 
+      b[i][j][3][3] 
+      b[i][j][3][4] 
+      b[i][j][4][0] 
+	* ( ( C2 * (  u[i][j+1][k][1] * u[i][j+1][k][1]
+		      + u[i][j+1][k][2] * u[i][j+1][k][2]
+		      + u[i][j+1][k][3] * u[i][j+1][k][3] ) * tmp2
+	      - C1 * ( u[i][j+1][k][4] * tmp1 ) )
+	    * ( u[i][j+1][k][2] * tmp1 ) )
+	* ( - (     c34 - c1345 )*tmp3*( pow2(u[i][j+1][k][1]) )
+	    - ( r43*c34 - c1345 )*tmp3*( pow2(u[i][j+1][k][2]) )
+	    - (     c34 - c1345 )*tmp3*( pow2(u[i][j+1][k][3]) )
+	    - c1345*tmp2*u[i][j+1][k][4] );
+      b[i][j][4][1] 
+	* ( - C2 * ( u[i][j+1][k][1]*u[i][j+1][k][2] ) * tmp2 )
+	* ( c34 - c1345 ) * tmp2 * u[i][j+1][k][1];
+      b[i][j][4][2] 
+	* ( C1 * ( u[i][j+1][k][4] * tmp1 )
+	    * ( (  u[i][j+1][k][1]*u[i][j+1][k][1]
+		   + 3.0 * u[i][j+1][k][2]*u[i][j+1][k][2]
+		   + u[i][j+1][k][3]*u[i][j+1][k][3] ) * tmp2 ) )
+	* ( r43*c34 - c1345 ) * tmp2 * u[i][j+1][k][2];
+      b[i][j][4][3] 
+	* ( - C2 * ( u[i][j+1][k][2]*u[i][j+1][k][3] ) * tmp2 )
+	- dt * ty1 * ( c34 - c1345 ) * tmp2 * u[i][j+1][k][3];
+      b[i][j][4][4] 
+	* ( C1 * ( u[i][j+1][k][2] * tmp1 ) )
+      tmp1 
+      c[i][j][0][0] 
+      c[i][j][0][1] 
+      c[i][j][0][2] 
+      c[i][j][0][3] 
+      c[i][j][0][4] 
+      c[i][j][1][0] 
+	* ( - ( u[i][j][k+1][1]*u[i][j][k+1][3] ) * tmp2 )
+	- dt * tz1 * ( - c34 * tmp2 * u[i][j][k+1][1] );
+      c[i][j][1][1] 
+      c[i][j][1][2] 
+      c[i][j][1][3] 
+      c[i][j][1][4] 
+      c[i][j][2][0] 
+	* ( - ( u[i][j][k+1][2]*u[i][j][k+1][3] ) * tmp2 )
+	- dt * tz1 * ( - c34 * tmp2 * u[i][j][k+1][2] );
+      c[i][j][2][1] 
+      c[i][j][2][2] 
+      c[i][j][2][3] 
+      c[i][j][2][4] 
+      c[i][j][3][0] 
+	* ( - ( u[i][j][k+1][3] * tmp1 ) *( u[i][j][k+1][3] * tmp1 )
+	    * ( ( u[i][j][k+1][1] * u[i][j][k+1][1]
+		  + u[i][j][k+1][2] * u[i][j][k+1][2]
+		  + u[i][j][k+1][3] * u[i][j][k+1][3] ) * tmp2 ) )
+	- dt * tz1 * ( - r43 * c34 * tmp2 * u[i][j][k+1][3] );
+      c[i][j][3][1] 
+	* ( - C2 * ( u[i][j][k+1][1] * tmp1 ) );
+      c[i][j][3][2] 
+	* ( - C2 * ( u[i][j][k+1][2] * tmp1 ) );
+      c[i][j][3][3] 
+	* ( u[i][j][k+1][3] * tmp1 )
+      c[i][j][3][4] 
+      c[i][j][4][0] 
+	* ( ( C2 * (  u[i][j][k+1][1] * u[i][j][k+1][1]
+                      + u[i][j][k+1][2] * u[i][j][k+1][2]
+                      + u[i][j][k+1][3] * u[i][j][k+1][3] ) * tmp2
+	      - C1 * ( u[i][j][k+1][4] * tmp1 ) )
+	    * ( u[i][j][k+1][3] * tmp1 ) )
+	* ( - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k+1][1]) )
+	    - ( c34 - c1345 ) * tmp3 * ( pow2(u[i][j][k+1][2]) )
+	    - ( r43*c34 - c1345 )* tmp3 * ( pow2(u[i][j][k+1][3]) )
+	    - c1345 * tmp2 * u[i][j][k+1][4] );
+      c[i][j][4][1] 
+	* ( - C2 * ( u[i][j][k+1][1]*u[i][j][k+1][3] ) * tmp2 )
+	- dt * tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k+1][1];
+      c[i][j][4][2] 
+	* ( - C2 * ( u[i][j][k+1][2]*u[i][j][k+1][3] ) * tmp2 )
+	- dt * tz1 * ( c34 - c1345 ) * tmp2 * u[i][j][k+1][2];
+      c[i][j][4][3] 
+	* ( C1 * ( u[i][j][k+1][4] * tmp1 )
+            * ( (  u[i][j][k+1][1]*u[i][j][k+1][1]
+		   + u[i][j][k+1][2]*u[i][j][k+1][2]
+		   + 3.0*u[i][j][k+1][3]*u[i][j][k+1][3] ) * tmp2 ) )
+	- dt * tz1 * ( r43*c34 - c1345 ) * tmp2 * u[i][j][k+1][3];
+      c[i][j][4][4] 
+	* ( C1 * ( u[i][j][k+1][3] * tmp1 ) )
+		    double v[ISIZ1][ISIZ2/2*2+1][ISIZ3/2*2+1][5],
+	  sum0 
+	  sum1 
+	  sum2 
+	  sum3 
+	  sum4 
+  double phi1[ISIZ2+2][ISIZ3+2];	/* phi1(0:isiz2+1,0:isiz3+1) */
+  double phi2[ISIZ2+2][ISIZ3+2];	/* phi2(0:isiz2+1,0:isiz3+1) */
+      phi1[i][k] 
+      phi2[i][k] 
+      phi1[i][j] 
+			- 0.50 * (  pow2(u[i][j][k][1])
+				    + pow2(u[i][j][k][2])
+				    + pow2(u[i][j][k][3]) )
+			/ u[i][j][k][0] );
+      phi2[i][j] 
+			- 0.50 * (  pow2(u[i][j][k][1])
+				    + pow2(u[i][j][k][2])
+				    + pow2(u[i][j][k][3]) )
+			/ u[i][j][k][0] );
+      frc1 
+		       + phi1[i+1][j]
+		       + phi1[i][j+1]
+		       + phi1[i+1][j+1]
+		       + phi2[i][j]
+		       + phi2[i+1][j]
+		       + phi2[i][j+1]
+		       + phi2[i+1][j+1] );
+      phi1[i][k] 
+      phi2[i][k] 
+	phi1[i][k] 
+			  - 0.50 * (  pow2(u[i][jbeg][k][1])
+				      + pow2(u[i][jbeg][k][2])
+				      + pow2(u[i][jbeg][k][3]) )
+			  / u[i][jbeg][k][0] );
+	phi2[i][k] 
+			  - 0.50 * (  pow2(u[i][jfin][k][1])
+				      + pow2(u[i][jfin][k][2])
+				      + pow2(u[i][jfin][k][3]) )
+			  / u[i][jfin][k][0] );
+      frc2 
+		       + phi1[i+1][k]
+		       + phi1[i][k+1]
+		       + phi1[i+1][k+1]
+		       + phi2[i][k]
+		       + phi2[i+1][k]
+		       + phi2[i][k+1]
+		       + phi2[i+1][k+1] );
+      phi1[i][k] 
+      phi2[i][k] 
+	phi1[j][k] 
+			  - 0.50 * (  pow2(u[ibeg][j][k][1])
+				      + pow2(u[ibeg][j][k][2])
+				      + pow2(u[ibeg][j][k][3]) )
+			  / u[ibeg][j][k][0] );
+	phi2[j][k] 
+			  - 0.50 * (  pow2(u[ifin][j][k][1])
+				      + pow2(u[ifin][j][k][2])
+				      + pow2(u[ifin][j][k][3]) )
+			  / u[ifin][j][k][0] );
+      frc3 
+		       + phi1[j+1][k]
+		       + phi1[j][k+1]
+		       + phi1[j+1][k+1]
+		       + phi2[j][k]
+		       + phi2[j+1][k]
+		       + phi2[j][k+1]
+		       + phi2[j+1][k+1] );
+	  rsd[i][j][k][m] 
+	flux[i][j][k][0] 
+	u21 
+	q 
+		      + u[i][j][k][2] * u[i][j][k][2]
+		      + u[i][j][k][3] * u[i][j][k][3] )
+	  / u[i][j][k][0];
+	flux[i][j][k][1] 
+	  ( u[i][j][k][4] - q );
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	  rsd[i][j][k][m] 
+	    - tx2 * ( flux[i+1][j][k][m] - flux[i-1][j][k][m] );
+	tmp 
+	u21i 
+	u31i 
+	u41i 
+	u51i 
+	tmp 
+	u21im1 
+	u31im1 
+	u41im1 
+	u51im1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	rsd[i][j][k][0] 
+	  + dx1 * tx1 * (            u[i-1][j][k][0]
+				     - 2.0 * u[i][j][k][0]
+				     +           u[i+1][j][k][0] );
+	rsd[i][j][k][1] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][1] - flux[i][j][k][1] )
+	  + dx2 * tx1 * (            u[i-1][j][k][1]
+				     - 2.0 * u[i][j][k][1]
+				     +           u[i+1][j][k][1] );
+	rsd[i][j][k][2] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][2] - flux[i][j][k][2] )
+	  + dx3 * tx1 * (            u[i-1][j][k][2]
+				     - 2.0 * u[i][j][k][2]
+				     +           u[i+1][j][k][2] );
+	rsd[i][j][k][3] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][3] - flux[i][j][k][3] )
+	  + dx4 * tx1 * (            u[i-1][j][k][3]
+				     - 2.0 * u[i][j][k][3]
+				     +           u[i+1][j][k][3] );
+	rsd[i][j][k][4] 
+	  + tx3 * C3 * C4 * ( flux[i+1][j][k][4] - flux[i][j][k][4] )
+	  + dx5 * tx1 * (            u[i-1][j][k][4]
+				     - 2.0 * u[i][j][k][4]
+				     +           u[i+1][j][k][4] );
+	rsd[1][j][k][m] 
+	  - dssp * ( + 5.0 * u[1][j][k][m]
+		     - 4.0 * u[2][j][k][m]
+		     +           u[3][j][k][m] );
+	rsd[2][j][k][m] 
+	  - dssp * ( - 4.0 * u[1][j][k][m]
+		     + 6.0 * u[2][j][k][m]
+		     - 4.0 * u[3][j][k][m]
+		     +           u[4][j][k][m] );
+	  rsd[i][j][k][m] 
+	    - dssp * (            u[i-2][j][k][m]
+				  - 4.0 * u[i-1][j][k][m]
+				  + 6.0 * u[i][j][k][m]
+				  - 4.0 * u[i+1][j][k][m]
+				  +           u[i+2][j][k][m] );
+	rsd[nx-3][j][k][m] 
+	  - dssp * (             u[nx-5][j][k][m]
+				 - 4.0 * u[nx-4][j][k][m]
+				 + 6.0 * u[nx-3][j][k][m]
+				 - 4.0 * u[nx-2][j][k][m]  );
+	rsd[nx-2][j][k][m] 
+	  - dssp * (             u[nx-4][j][k][m]
+				 - 4.0 * u[nx-3][j][k][m]
+				 + 5.0 * u[nx-2][j][k][m] );
+	flux[i][j][k][0] 
+	u31 
+	q 
+		      + u[i][j][k][2] * u[i][j][k][2]
+		      + u[i][j][k][3] * u[i][j][k][3] )
+	  / u[i][j][k][0];
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	  rsd[i][j][k][m] 
+	    - ty2 * ( flux[i][j+1][k][m] - flux[i][j-1][k][m] );
+	tmp 
+	u21j 
+	u31j 
+	u41j 
+	u51j 
+	tmp 
+	u21jm1 
+	u31jm1 
+	u41jm1 
+	u51jm1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	rsd[i][j][k][0] 
+	  + dy1 * ty1 * (            u[i][j-1][k][0]
+				     - 2.0 * u[i][j][k][0]
+				     +           u[i][j+1][k][0] );
+	rsd[i][j][k][1] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][1] - flux[i][j][k][1] )
+	  + dy2 * ty1 * (            u[i][j-1][k][1]
+				     - 2.0 * u[i][j][k][1]
+				     +           u[i][j+1][k][1] );
+	rsd[i][j][k][2] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][2] - flux[i][j][k][2] )
+	  + dy3 * ty1 * (            u[i][j-1][k][2]
+				     - 2.0 * u[i][j][k][2]
+				     +           u[i][j+1][k][2] );
+	rsd[i][j][k][3] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][3] - flux[i][j][k][3] )
+	  + dy4 * ty1 * (            u[i][j-1][k][3]
+				     - 2.0 * u[i][j][k][3]
+				     +           u[i][j+1][k][3] );
+	rsd[i][j][k][4] 
+	  + ty3 * C3 * C4 * ( flux[i][j+1][k][4] - flux[i][j][k][4] )
+	  + dy5 * ty1 * (            u[i][j-1][k][4]
+				     - 2.0 * u[i][j][k][4]
+				     +           u[i][j+1][k][4] );
+	rsd[i][1][k][m] 
+	  - dssp * ( + 5.0 * u[i][1][k][m]
+		     - 4.0 * u[i][2][k][m]
+		     +           u[i][3][k][m] );
+	rsd[i][2][k][m] 
+	  - dssp * ( - 4.0 * u[i][1][k][m]
+		     + 6.0 * u[i][2][k][m]
+		     - 4.0 * u[i][3][k][m]
+		     +           u[i][4][k][m] );
+	  rsd[i][j][k][m] 
+	    - dssp * (            u[i][j-2][k][m]
+				  - 4.0 * u[i][j-1][k][m]
+				  + 6.0 * u[i][j][k][m]
+				  - 4.0 * u[i][j+1][k][m]
+				  +           u[i][j+2][k][m] );
+	rsd[i][ny-3][k][m] 
+	  - dssp * (             u[i][ny-5][k][m]
+				 - 4.0 * u[i][ny-4][k][m]
+				 + 6.0 * u[i][ny-3][k][m]
+				 - 4.0 * u[i][ny-2][k][m]  );
+	rsd[i][ny-2][k][m] 
+	  - dssp * (             u[i][ny-4][k][m]
+				 - 4.0 * u[i][ny-3][k][m]
+				 + 5.0 * u[i][ny-2][k][m] );
+	flux[i][j][k][0] 
+	u41 
+	q 
+		      + u[i][j][k][2] * u[i][j][k][2]
+		      + u[i][j][k][3] * u[i][j][k][3] )
+	  / u[i][j][k][0];
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	  rsd[i][j][k][m] 
+	    - tz2 * ( flux[i][j][k+1][m] - flux[i][j][k-1][m] );
+	tmp 
+	u21k 
+	u31k 
+	u41k 
+	u51k 
+	tmp 
+	u21km1 
+	u31km1 
+	u41km1 
+	u51km1 
+	flux[i][j][k][1] 
+	flux[i][j][k][2] 
+	flux[i][j][k][3] 
+	flux[i][j][k][4] 
+	rsd[i][j][k][0] 
+	  + dz1 * tz1 * (            u[i][j][k-1][0]
+				     - 2.0 * u[i][j][k][0]
+				     +           u[i][j][k+1][0] );
+	rsd[i][j][k][1] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][1] - flux[i][j][k][1] )
+	  + dz2 * tz1 * (            u[i][j][k-1][1]
+				     - 2.0 * u[i][j][k][1]
+				     +           u[i][j][k+1][1] );
+	rsd[i][j][k][2] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][2] - flux[i][j][k][2] )
+	  + dz3 * tz1 * (            u[i][j][k-1][2]
+				     - 2.0 * u[i][j][k][2]
+				     +           u[i][j][k+1][2] );
+	rsd[i][j][k][3] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][3] - flux[i][j][k][3] )
+	  + dz4 * tz1 * (            u[i][j][k-1][3]
+				     - 2.0 * u[i][j][k][3]
+				     +           u[i][j][k+1][3] );
+	rsd[i][j][k][4] 
+	  + tz3 * C3 * C4 * ( flux[i][j][k+1][4] - flux[i][j][k][4] )
+	  + dz5 * tz1 * (            u[i][j][k-1][4]
+				     - 2.0 * u[i][j][k][4]
+				     +           u[i][j][k+1][4] );
+	rsd[i][j][1][m] 
+	  - dssp * ( + 5.0 * u[i][j][1][m]
+		     - 4.0 * u[i][j][2][m]
+		     +           u[i][j][3][m] );
+	rsd[i][j][2][m] 
+	  - dssp * ( - 4.0 * u[i][j][1][m]
+		     + 6.0 * u[i][j][2][m]
+		     - 4.0 * u[i][j][3][m]
+		     +           u[i][j][4][m] );
+	  rsd[i][j][k][m] 
+	    - dssp * (            u[i][j][k-2][m]
+				  - 4.0 * u[i][j][k-1][m]
+				  + 6.0 * u[i][j][k][m]
+				  - 4.0 * u[i][j][k+1][m]
+				  +           u[i][j][k+2][m] );
+	rsd[i][j][nz-3][m] 
+	  - dssp * (             u[i][j][nz-5][m]
+				 - 4.0 * u[i][j][nz-4][m]
+				 + 6.0 * u[i][j][nz-3][m]
+				 - 4.0 * u[i][j][nz-2][m]  );
+	rsd[i][j][nz-2][m] 
+	  - dssp * (             u[i][j][nz-4][m]
+				 - 4.0 * u[i][j][nz-3][m]
+				 + 5.0 * u[i][j][nz-2][m] );
+      exact( iglob, jglob, 0, &u[i][j][0][0] );
+      exact( iglob, jglob, nz-1, &u[i][j][nz-1][0] );
+      exact( iglob, 0, k, &u[i][0][k][0] );
+      exact( iglob, ny0-1,  k, &u[i][ny-1][k][0] );
+      exact( 0, jglob, k, &u[0][j][k][0] );
+      exact( nx0-1, jglob, k, &u[nx-1][j][k][0] );
+  ce[0][0] 
+  ce[0][1] 
+  ce[0][2] 
+  ce[0][3] 
+  ce[0][4] 
+  ce[0][5] 
+  ce[0][6] 
+  ce[0][7] 
+  ce[0][8] 
+  ce[0][9] 
+  ce[0][10] 
+  ce[0][11] 
+  ce[0][12] 
+  ce[1][0] 
+  ce[1][1] 
+  ce[1][2] 
+  ce[1][3] 
+  ce[1][4] 
+  ce[1][5] 
+  ce[1][6] 
+  ce[1][7] 
+  ce[1][8] 
+  ce[1][9] 
+  ce[1][10] 
+  ce[1][11] 
+  ce[1][12] 
+  ce[2][0] 
+  ce[2][1] 
+  ce[2][2] 
+  ce[2][3] 
+  ce[2][4] 
+  ce[2][5] 
+  ce[2][6] 
+  ce[2][7] 
+  ce[2][8] 
+  ce[2][9] 
+  ce[2][10] 
+  ce[2][11] 
+  ce[2][12] 
+  ce[3][0] 
+  ce[3][1] 
+  ce[3][2] 
+  ce[3][3] 
+  ce[3][4] 
+  ce[3][5] 
+  ce[3][6] 
+  ce[3][7] 
+  ce[3][8] 
+  ce[3][9] 
+  ce[3][10] 
+  ce[3][11] 
+  ce[3][12] 
+  ce[4][0] 
+  ce[4][1] 
+  ce[4][2] 
+  ce[4][3] 
+  ce[4][4] 
+  ce[4][5] 
+  ce[4][6] 
+  ce[4][7] 
+  ce[4][8] 
+  ce[4][9] 
+  ce[4][10] 
+  ce[4][11] 
+  ce[4][12] 
+	      u[i][j][k][m] 
+  double  delunm[5], tv[ISIZ1][ISIZ2][5];
+	  a[i][j][k][m] 
+	  b[i][j][k][m] 
+	  c[i][j][k][m] 
+	  d[i][j][k][m] 
+	    rsd[i][j][k][m] 
+	    u[i][j][k][m] 
+	      + tmp * rsd[i][j][k][m];
