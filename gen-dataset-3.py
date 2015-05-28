@@ -27,10 +27,10 @@ def next_access(data, offset=0, count=DIMS):
 import arith
 
 def parse_index(data):
-    return {'name': 'index', 'expr': ast.tojson(arith.eval(data))}
+    return ast.tojson(arith.eval(data))
 
 def parse_access(data):
-    result = {'name': 'access'}
+    result = {'type': 'index'}
     index = 0
     for (x,y) in next_access(data):
         result[index] = parse_index(data[x:y])

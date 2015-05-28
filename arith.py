@@ -48,11 +48,11 @@ class Arith:
 def parse(data):
     """
     >>> parse("i")
-    Atom(level=1, coef=1, has_var=False)
+    Atom(level=1, const=1, has_var=False)
     >>> parse("1")
-    Atom(level=0, coef=1, has_var=False)
+    Atom(level=0, const=1, has_var=False)
     >>> parse("i + 1")
-    Add(Atom(level=0, coef=1, has_var=False), Atom(level=1, coef=1, has_var=False))
+    Add(Atom(level=0, const=1, has_var=False), Atom(level=1, const=1, has_var=False))
     """
     try:
         return Arith().parse(data)
@@ -62,7 +62,7 @@ def parse(data):
 def eval(data):
     """
     >>> eval("1 + 2")
-    Atom(level=0, coef=3, has_var=False)
+    Atom(level=0, const=3, has_var=False)
     """
     return ast.eval_expr(parse(data))
 
