@@ -1,54 +1,49 @@
 from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.cluster import KMeans
 
-def next_index(data, offset=0):
-    start = data.index("[", offset)
-    if start == -1:
-        return ValueError("Could not find start token: [")
-    end = data.index("]", start)
-    if end == -1:
-        return ValueError("Could not find end token: ]")
-    next_start = data.index("[", start)
-    if next_start != -1 and next_start > end:
-        return next_index(data, next_start)
-    return (start + 1, end)
+import json
+import math
 
 DIMS=3
 
-def next_access(data, offset=0, count=DIMS):
+def atom_tovec(expr):
+    """
+    >>> atom_tovec({'level': 0, 'type': 'atom', 'has_var': False, 'coef': 1})
+    (1, 0)
+    >>> atom_tovec({'level': 2, 'type': 'atom', 'has_var': True, 'coef': 2})
+    (2, 1)
+    >>> atom_tovec({"level": 1, "type": "atom", "has_var": False, "coef": 5})
+    (5, 0)
+    """
+    lvl = expr['level']
+    has_var = int(expr['has_var'])
+    coef = expr['coef']
+    return (coef, has_var)
+
+def expr_tovec(expr):
+    """
+    >>> expr_tovec({"type": "expr", "atoms": [{"level": 1, "type": "atom", "has_var": False, "coef": 5}]})
+    (0, 0, 5, 0, 0, 0, 0, 0)
+    """
+    atoms = {}
+    for atom in expr['atoms']:
+        atoms[atom['level']] = atom_tovec(atom)
+        
     result = []
-    for _ in range(count):
-        idx1, idx2 = next_index(data, offset)
-        result.append((idx1, idx2))
-        offset = idx2
-    return result
-
-import arith
-
-def parse_index(data):
-    
-    return {
-        "$1": int("i" in data),
-        "$2": int("j" in data),
-        "$3": int("k" in data)}
-
-def parse_access(data):
-    result = {}
-    index = 0
-    for (x,y) in next_access(data):
-        # flatten the dictionary, so that DictVectorizer can handle it
-        for (k,v) in parse_index(data[x:y]).iteritems():
-            result[str(index) + ":" + k] = v
-        index += 1
-    return result
-
-def parse(lines):
-    for data in lines:
+    for idx in range(DIMS + 1):
         try:
-            yield repr(parse_access(data))
-        except ValueError:
-            pass
+            result.extend(atoms[idx])
+        except KeyError:
+            result.extend((0, 0))
+    return tuple(result)
 
-from sklearn.feature_extraction.text import CountVectorizer
+def main(fp):
+    vec = DictVectorizer()
+    parsed = list(repr(x) for x in json.load(fp))
+    print parsed[0]
+    matrix = vec.fit_transform(parsed)
+    return vec, matrix
 
 def main2(data):
     vec = CountVectorizer()
@@ -56,13 +51,7 @@ def main2(data):
     matrix = vec.fit_transform(parsed)
     return vec, matrix
 
-def main(data):
-    vec = DictVectorizer()
-    parsed = list(parse(data))
-    matrix = vec.fit_transform(parsed)
-    return vec, matrix
 
-from sklearn.cluster import KMeans
 
 def show_graph(data,k):
     from matplotlib import pyplot
@@ -86,12 +75,15 @@ def show_graph(data,k):
     pyplot.show()
 
 
+if __name__ == "__main__":
+oh    import doctest
+    doctest.testmod()
+    
 if __name__ == '__main__':
+    pass
     import sys
-    fp1 = open(sys.argv[1])
-    vec1, matrix1 = main2(fp1.readlines())
-    fp1.close()
-    print matrix1.shape
+    with open(sys.argv[1]) as fp:
+        show_graph(json.load(fp), 5)
     #km = KMeans(n_clusters=9)
     #km.fit(vec1)
     #print(matrix1.toarray())
