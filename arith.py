@@ -70,8 +70,3 @@ if __name__ == "__main__":
     import doctest
     doctest.testmod()
 
-#if __name__ == '__main__':
-#    import sys
-#    expr = sys.argv[1]
-#    print repr(expr)
-#    print dir(parse(expr).pop())
