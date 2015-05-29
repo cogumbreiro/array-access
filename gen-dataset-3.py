@@ -45,7 +45,9 @@ def parse(lines):
 def main(data):
     import json
     import sys
-    json.dump(list(parse(data)), sys.stdout)
+    for x in parse(data):
+        json.dump(x, sys.stdout)
+        print("")
 
 if __name__ == '__main__':
     import sys
