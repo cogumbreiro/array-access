@@ -30,12 +30,10 @@ def parse_index(data):
     return ast.tojson(arith.eval(data))
 
 def parse_access(data):
-    result = {'type': 'index'}
-    index = 0
+    exps = []
     for (x,y) in next_access(data):
-        result[index] = parse_index(data[x:y])
-        index += 1
-    return result
+        exps.append(parse_index(data[x:y]))
+    return {'type': 'access', 'subscripts': exps}
 
 def parse(lines):
     for data in lines:
