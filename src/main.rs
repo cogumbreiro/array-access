@@ -32,16 +32,24 @@ impl Atom {
 
 #[test]
 fn test_mul() {
+    // (2 + a) * 3 * i = (6 + 3 * a) * i = (6 + a) * i
     assert_eq!(
         (&Atom{level:0, constant: 2, variable: true}).mul(
             &Atom{level:1, constant: 3, variable: false}
         ), Atom{level:1, constant: 6, variable: true});
+    // (2 + a)*i * 3*j = ( 6 + true ) j
+    assert_eq!(
+        (&Atom{level:1, constant: 2, variable: true}).mul(
+            &Atom{level:2, constant: 3, variable: false}
+        ), Atom{level:2, constant: 6, variable: true});
+
 }
 
 #[derive(Debug,PartialEq)]
 enum Expr {
     Int(i32),
     Var(String),
+    Mul(Box<Expr>, Box<Expr>),
     Add(Box<Expr>, Box<Expr>)
 }
 
@@ -82,6 +90,15 @@ impl Interpreter {
     fn flatten(&self, expr:Expr) -> Vec<Atom> {
         let mut result : Vec<Atom> = vec!();
         match expr {
+            Expr::Mul(lhs, rhs) => {
+                let lhs_sum = self.flatten(*lhs);
+                let rhs_sum = self.flatten(*rhs);
+                for x in &lhs_sum {
+                    for y in &rhs_sum {
+                        result.push(x.mul(&y));
+                    }
+                }
+            }
             Expr::Add(lhs, rhs) => {
                 result.extend(self.flatten(*lhs).into_iter());
                 result.extend(self.flatten(*rhs).into_iter());
