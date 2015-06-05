@@ -5,12 +5,14 @@ use std::collections::HashMap;
 use std::vec::Vec;
 use std::cmp::Ordering;
 use std::cmp;
-use rustc_serialize::json::{Json, ToJson};
+use rustc_serialize::Encodable;
+use rustc_serialize::json::{self, Json, ToJson};
+use std::io;
 
 type Num = i64;
 
-#[derive(Debug, PartialEq, Clone)]
-struct Atom {level : i32, constant : Num, variable : bool}
+#[derive(Debug, PartialEq, Clone, RustcEncodable)]
+struct Atom {level : u32, constant : Num, variable : bool}
 
 impl Atom {
     fn level_cmp(&self, other:&Atom) -> Ordering {
@@ -61,7 +63,7 @@ enum Expr {
     Add(Box<Expr>, Box<Expr>)
 }
 
-type Env = HashMap<String, i32>;
+type Env = HashMap<String, u32>;
 
 struct Interpreter {
     env:Env
@@ -72,7 +74,7 @@ impl Interpreter {
         Interpreter {env: env.clone(), }
     }
 
-    fn get_level(&self, atom:&str) -> i32 {
+    fn get_level(&self, atom:&str) -> u32 {
         match self.env.get(atom) {
             Some(idx) => *idx,
             None => 0
@@ -290,8 +292,11 @@ fn test_json_to_expr () {
     } else {assert!(false); }
     
 }
-
-impl ToJson for Atom {
+/*
+impl Encodable for Atom {
+    fn encode(<S: Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
+        
+    }
     fn to_json(&self) -> Json {
         Json::Object(btreemap!{
             "level".to_string() => self.level.to_json(),
@@ -299,7 +304,91 @@ impl ToJson for Atom {
             "variable".to_string() => self.variable.to_json()
         })
     } 
+}*/
+
+#[derive(Debug, PartialEq)]
+enum EnvParseError {
+    KeyTypeMismatch(String),
+    NotADict
 }
 
+fn env_from_json(data:&Json) -> Result<Env,EnvParseError> {
+    if let &Json::Object(ref obj) = data {
+        let mut result:Env = hashmap!{};
+        for (key, val) in obj.iter() {
+            match val {
+                &Json::I64(ref num) => {
+                    result.insert(key.clone(), *num as u32);
+                }
+                &Json::U64(ref num) => {
+                    result.insert(key.clone(), *num as u32);
+                }
+                _ => return Err(EnvParseError::KeyTypeMismatch(key.clone()))
+            }
+        }
+        return Ok(result)
+    }
+    Err(EnvParseError::NotADict)
+}
 
+#[test]
+fn test_env_parsing() {
+    if let Ok(x) = Json::from_str("{\"foo\": 2, \"bar\": 1}") {
+        assert_eq!(env_from_json(&x), Ok(hashmap!{"foo".to_string() => 2, "bar".to_string()=>1}));
+    } else {assert!(false); }
 
+    if let Ok(x) = Json::from_str("{\"foo\": 2, \"bar\": \"\"}") {
+        assert_eq!(env_from_json(&x), Err(EnvParseError::KeyTypeMismatch("bar".to_string())));
+    } else {assert!(false); }
+
+    if let Ok(x) = Json::from_str("1") {
+        assert_eq!(env_from_json(&x), Err(EnvParseError::NotADict));
+    } else {assert!(false); }
+}
+
+enum LineParseError {
+    NotADict,
+    Invalid
+}
+
+struct Line {
+    env:Env,
+    expr:Expr
+}
+
+impl Line {
+    fn from_json(data:&Json) -> Result<Line,LineParseError> {
+        if let &Json::Object(ref obj) = data {
+            if let Some(ref env_json) = obj.get("env") {
+                if let Some(ref expr_json) = obj.get("expr") {
+                    if let (Ok(env), Ok(expr)) = (env_from_json(env_json), Expr::from_json(expr_json)) {
+                        return Ok(Line{env:env, expr:expr})
+                    }
+                }
+            }
+            return Err(LineParseError::Invalid)
+        }
+        Err(LineParseError::NotADict)
+    }
+    
+    fn eval(&self) -> Vec<Atom> {
+        Interpreter::new(&self.env).eval(&self.expr)
+    }
+}
+
+fn main() {
+    loop {
+        let mut line = String::new();
+        if let Ok(_) = io::stdin().read_line(&mut line) {
+            if let Ok(json_obj) = Json::from_str(&line) {
+                if let Ok(expr) = Line::from_json(&json_obj) {
+                    if let Ok(result) = json::encode(&expr.eval()) {
+                        println!("{}", result);
+                    }
+                }
+            }
+        } else {
+            break
+        }
+    }
+}
