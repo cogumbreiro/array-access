@@ -27,18 +27,19 @@ def next_access(data, offset=0, count=DIMS):
 import arith
 
 def parse_index(data):
-    return ast.tojson(arith.eval(data))
+    #return ast.tojson(arith.eval(data))
+    return arith.parse(data)
 
-def parse_access(data):
+def parse_subscript_exp(data):
     exps = []
     for (x,y) in next_access(data):
         exps.append(parse_index(data[x:y]))
-    return {'type': 'access', 'subscripts': exps}
+    return {'env': {"i":1, "j":2, "k":3}, 'indices': exps}
 
 def parse(lines):
     for data in lines:
         try:
-            yield parse_access(data)
+            yield parse_subscript_exp(data)
         except ValueError:
             pass
 

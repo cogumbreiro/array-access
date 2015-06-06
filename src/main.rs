@@ -6,7 +6,7 @@ use std::vec::Vec;
 use std::cmp::Ordering;
 use std::cmp;
 use rustc_serialize::Encodable;
-use rustc_serialize::json::{self, Json, ToJson};
+use rustc_serialize::json::{self, Json/*, ToJson*/};
 use std::io;
 
 type Num = i64;
@@ -292,19 +292,6 @@ fn test_json_to_expr () {
     } else {assert!(false); }
     
 }
-/*
-impl Encodable for Atom {
-    fn encode(<S: Encoder>(&self, s: &mut S) -> Result<(), S::Error> {
-        
-    }
-    fn to_json(&self) -> Json {
-        Json::Object(btreemap!{
-            "level".to_string() => self.level.to_json(),
-            "constant".to_string() => self.constant.to_json(),
-            "variable".to_string() => self.variable.to_json()
-        })
-    } 
-}*/
 
 #[derive(Debug, PartialEq)]
 enum EnvParseError {
@@ -351,18 +338,37 @@ enum LineParseError {
     Invalid
 }
 
-struct Line {
+struct SubscriptExpr {
     env:Env,
-    expr:Expr
+    indices:Vec<Expr>
 }
 
-impl Line {
-    fn from_json(data:&Json) -> Result<Line,LineParseError> {
+#[derive(Debug, PartialEq, RustcEncodable)]
+struct Index {
+    atoms:Vec<Atom>
+}
+
+#[derive(Debug, PartialEq, RustcEncodable)]
+struct SubscriptAtoms {
+    subscripts:Vec<Index>,
+}
+
+
+impl SubscriptExpr {
+    fn from_json(data:&Json) -> Result<SubscriptExpr,LineParseError> {
         if let &Json::Object(ref obj) = data {
             if let Some(ref env_json) = obj.get("env") {
-                if let Some(ref expr_json) = obj.get("expr") {
-                    if let (Ok(env), Ok(expr)) = (env_from_json(env_json), Expr::from_json(expr_json)) {
-                        return Ok(Line{env:env, expr:expr})
+                if let Some(&Json::Array(ref indices)) = obj.get("indices") {
+                    let mut exprs = Vec::new();
+                    for ref elem in indices {
+                        if let Ok(expr) = Expr::from_json(&elem) {
+                            exprs.push(expr);
+                        } else {
+                            return Err(LineParseError::Invalid)
+                        }
+                    }
+                    if let Ok(env) = env_from_json(env_json) {
+                        return Ok(SubscriptExpr{env:env, indices: exprs})
                     }
                 }
             }
@@ -371,8 +377,12 @@ impl Line {
         Err(LineParseError::NotADict)
     }
     
-    fn eval(&self) -> Vec<Atom> {
-        Interpreter::new(&self.env).eval(&self.expr)
+    fn eval(&self) -> SubscriptAtoms {
+        let mut result = Vec::new();
+        for expr in &self.indices {
+            result.push(Index{atoms: Interpreter::new(&self.env).eval(&expr)})
+        }
+        SubscriptAtoms{subscripts: result}
     }
 }
 
@@ -381,14 +391,14 @@ fn main() {
         let mut line = String::new();
         if let Ok(_) = io::stdin().read_line(&mut line) {
             if let Ok(json_obj) = Json::from_str(&line) {
-                if let Ok(expr) = Line::from_json(&json_obj) {
+                if let Ok(expr) = SubscriptExpr::from_json(&json_obj) {
                     if let Ok(result) = json::encode(&expr.eval()) {
                         println!("{}", result);
+                        continue
                     }
                 }
             }
-        } else {
-            break
         }
+        return
     }
 }
